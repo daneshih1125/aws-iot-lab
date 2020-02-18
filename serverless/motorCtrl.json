@@ -1,0 +1,10 @@
+{
+  "type": "object",
+  "properties" :{
+    "motor_enable": {
+      "type": "boolean"
+    }
+  },
+  "required": ["motor_enable"],
+  "additionalProperties": false
+}

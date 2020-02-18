@@ -1,0 +1,32 @@
+service: aws-iot-lab
+
+# app and org for use with dashboard.serverless.com
+app: aws-iot-lab
+org: daneshih1125
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  region: ap-northeast-1
+  environment:
+    IOT_ENDPOINT: a1ws5sttxtfldm.iot.ap-northeast-1.amazonaws.com
+    ACCESS_KEY_ID: ACCESS_KEY_ID
+    SECRET_ACCESS_KEY: SECRET_ACCESS_KEY
+    THING_NAME: iot_device_2
+
+functions:
+  eventRecv:
+    handler: handler.eventRecv
+    events:
+      - iot:
+          sql: "SELECT * FROM 'iot/event/recv'"
+  motorCtrl:
+    handler: handler.motorCtrl
+    events:
+      - http:
+          path: motor/ctrl
+          method: put
+          cors: true
+          request:
+            schema: 
+              application/json: ${file(motorCtrl.json)}
